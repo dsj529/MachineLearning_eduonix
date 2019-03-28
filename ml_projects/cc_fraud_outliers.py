@@ -42,23 +42,23 @@ columns = [c for c in columns if c not in ['Class']]
 target = 'Class'
 X = data[columns]
 Y = data[target]
-print(X.shape)
-print(Y.shape)
+# print(X.shape)
+# print(Y.shape)
 
-classifiers = {'Isolation Forest': IsolationForest(n_estimators=250,
-                                                   max_samples='auto',
-                                                   contamination=outlier_frac,
-                                                   behaviour='new'),
-               'Local Outlier Factor': LocalOutlierFactor(n_neighbors=20, 
-                                                          contamination=outlier_frac),
-               'Robust Covariance': EllipticEnvelope(contamination=outlier_frac)}
+classifiers = {
+    'Isolation Forest': IsolationForest(n_estimators=250,
+                                        max_samples=len(X),
+                                        contamination=outlier_frac,
+                                        behaviour='new'),
+    'Local Outlier Factor': LocalOutlierFactor(n_neighbors=20, 
+                                               contamination=outlier_frac),
+    'Robust Covariance': EllipticEnvelope(contamination=outlier_frac)}
 
 ## fit the models
-plt.figure(figsize=(9,7))
 n_outliers = len(Fraud)
 
 for i, (clf_name, clf) in enumerate(classifiers.items()):
-    y_pred = np.zeros(len(X))
+#     y_pred = np.zeros(len(X))
     if clf_name == 'Local Outlier Factor':
         y_pred = clf.fit_predict(X)
         scores_pred = clf.negative_outlier_factor_
@@ -68,8 +68,8 @@ for i, (clf_name, clf) in enumerate(classifiers.items()):
         y_pred = clf.predict(X)
         
     # reshape prediction values to 0/1 for valid/fraud
-    y_pred[y_pred == 1] == 0
-    y_pred[y_pred == -1] == 1
+    y_pred[y_pred == 1] = 0
+    y_pred[y_pred == -1] = 1
     n_errors = (y_pred != Y).sum()
     
     # run metrics
