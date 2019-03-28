@@ -2,6 +2,9 @@
 Created on Mar 27, 2019
 
 @author: dsj529
+
+comparison of various outlier/novelty detection algorithms
+data hosted at kaggle.com; the file must be downloaded for this code to work.
 '''
 import numpy as np
 import pandas as pd
