@@ -13,8 +13,6 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout
 from keras.wrappers.scikit_learn import KerasClassifier
 from keras.optimizers import Adam
-from tensorflow.python.training import learning_rate_decay
-from nltk.sem.logic import equality_preds
 
 ## collect data from server
 url = ('http://archive.ics.uci.edu/ml/machine-learning-databases/spambase/spambase.data')
